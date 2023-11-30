@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Report</title>
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% load static %}
+    {% block content %}
+    <header>
+        <h1>Taiwan Weather Report</h1>
+    </header>
+    
+    <div class="container-fluid mt-5">
+        <main>
+            <table id="weathertable">
+                <tr>
+                    <th>縣市</th>
+                    <th>氣象</th>
+                    <th>最高溫（℃）</th>
+                    <th>最低溫（℃）</th>
+                    <th>舒適度</th>
+                    <th>降雨率（％）</th>
+                    <th>開始時間yyyy-mm-dd</th>
+                </tr>
+                {% for city,wr8,maxt8,mint8,ci8,pop8,starttime in all %}
+                <!-- extracted data is in the all=zip(),that in all using. in locations will print the 22data in 1 space [1*22]*22 -->
+                <tr>
+                    <td>{{city}}</td>
+                    <td>{{wr8}}</td>
+                    <td>{{maxt8}}</td>
+                    <td>{{mint8}}</td>
+                    <td>{{ci8}}</td>
+                    <td>{{pop8}}</td>
+                    <td>{{starttime}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </main>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

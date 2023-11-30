@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advisories & Warnings</title>
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% load static %}
+    {% block content %}
+    <header>
+        <h1>Taiwan Weather Report</h1>
+    </header>
+    
+    <div class="container-fluid mt-5">
+        <main>
+            <table>
+                <tr>
+                    <th>縣市</th>
+                    <th>區碼</th>
+                    <th>hazards</th>
+                    <th>現象</th>
+                    <th>特報</th>
+                    <th>開始時</th>
+                    <th>結束時</th>
+                </tr>
+                {% for city,geocode,phenomena,significance,startime,endtime in all %}
+                
+                <!-- extracted data is in the all=zip(),that in all using. in locations will print the 22data in 1 space [1*22]*22 -->
+                <tr>
+                    <td>{{city}}</td>
+                    <td>{{geocode}}</td>
+                    <td>{{hazards}}</td>
+                    <td>{{phenomena}}</td>
+                    <td>{{significance}}</td>
+                    <td>{{startime}}</td>
+                    <td>{{endtime}}</td>
+                </tr>
+                {% endfor %}
+                {% for city,geocode,hazard in all2 %}
+                <tr>
+                    <td>{{city}}</td>
+                    <td>{{geocode}}</td>
+                    <td>{{hazards}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </main>
+    </div>
+    {% endblock %}
+</body>
+
+</html>

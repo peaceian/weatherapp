@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Weather</title>
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% load static %}
+    {% block content %}
+    <header>
+        <h1>Realtime Weather</h1>
+    </header>
+
+    <div class="container-fluid">
+        <main>
+            <div class="row">
+                <p class="col-auto me-auto">Renew Time: 6HR</p>
+                <p class="col-auto">補充說明：-99皆表示，該時刻因故無資料。</p>
+            </div>
+            <table style="font-size: 1.0rem;text-align:center" id="weathertable">
+                <thead>
+                    <tr>
+                        <th id="detail">緯度</th>
+                        <th id="detail">經度</th>
+                        <th>城市</th>
+                        <th>鄉鎮</th>
+                        <th>站名</th>
+                        <th id="detail">站號</th>
+                        <th id="detail2">高度(m)</th>
+                        <th id="detail2">風向(°)</th>
+                        <th>風速(m/s)</th>
+                        <th>溫度(℃)</th>
+                        <th>溼度(%)</th>
+                        <th id="detail2">氣壓</th>
+                        <th>氣象</th>
+                        <th id="detail" style="width: 170px;">時間</th>
+                    </tr>
+                </thead>
+                {% for lat,lon,StationName,StationId,obsTime,Altitude,WDIR,WDSD,TEMP,HUMD,PRES,WEATHER,CITY,TOWN in all%}
+                <!-- extracted data is in the all=zip(),that in all using. in locations will print the 22data in 1 space [1*22]*22 -->
+                <tr>
+                    <td id="detail">{{lat}}</td>
+                    <td id="detail">{{lon}}</td>
+                    <td>{{CITY}}</td>
+                    <td>{{TOWN}}</td>
+                    <td>{{StationName}}</td>
+                    <td id="detail">{{StationId}}</td>
+                    <td id="detail2">{{Altitude}}</td>
+                    <td id="detail2">{{WDIR}}</td>
+                    <td>{{WDSD}}</td>
+                    <td>{{TEMP}}</td>
+                    <td>{{HUMD}}</td>
+                    <td id="detail2">{{PRES}}</td>
+                    <td>{{WEATHER}}</td>
+                    <td id="detail">{{obsTime}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </main>
+    </div>
+    {% endblock %}
+</body>
+
+</html>
