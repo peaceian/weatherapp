@@ -8,7 +8,8 @@ import urllib.request
 import re
 import urllib.parse
 from django.http import HttpResponse
-
+import urllib3
+urllib3.disable_warnings()#Maybe appear InsecureRequestWarning, this could it disable.
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -18,8 +19,10 @@ user_key = 'CWB-869C7631-CE97-4263-9AF8-635DF71E8A67'
 def wr8(request):
     doc_name = 'F-C0032-001'
     url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/%s?Authorization=%s" % (doc_name,user_key)
-    
-    data = requests.get(url) #requests json檔內容為文字
+    headers = {'Connection':'close'}
+    #requests setting remove SSL certificate.
+    data = requests.get(url,headers=headers,verify=False) #requests json檔內容為文字
+    print(data)
     #print(data.text)
     #data = requests.get(url).text #type:str
 
@@ -78,7 +81,8 @@ def wr8(request):
 def realtimeweather(request):
     doc_name = 'O-A0001-001'
     url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/%s?Authorization=%s" % (doc_name,user_key)
-    data = requests.get(url)
+    headers = {'Connect':'close'}
+    data = requests.get(url,headers=headers,verify=False)
     data_json = data.json()
     locations = data_json['records']['Station']
 

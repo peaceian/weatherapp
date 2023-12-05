@@ -24,5 +24,5 @@ urlpatterns = [
     path('detailone/',detailone),
     path('search/',searchcity),
     path('advisory/',advisory),
-    path('',wr8),
+    path('',searchcity),
 ]
