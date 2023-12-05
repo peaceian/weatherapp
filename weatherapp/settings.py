@@ -118,7 +118,7 @@ USE_TZ = True
 
 #Method 1
 STATIC_URL = '/static/' #default
-STATICFILES_DIRS = [BASE_DIR / 'static']#add base_dir path #default
+STATICFILES_DIRS = [BASE_DIR / 'static/CSS']#add base_dir path #default
 # Method 2
 # STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
 STATIC_ROOT = '' #new added
