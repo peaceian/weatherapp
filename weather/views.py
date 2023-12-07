@@ -15,7 +15,7 @@ urllib3.disable_warnings()#Maybe appear InsecureRequestWarning, this could it di
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Create your views here.
-'''
+
 user_agents = [
         "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)",
  "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; Acoo Browser; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)",
@@ -35,7 +35,7 @@ user_agents = [
  "Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
         ]
 headers = {'user-agent': random.choice(user_agents)} #偽裝使用者
-'''
+
 user_key = 'CWB-869C7631-CE97-4263-9AF8-635DF71E8A67'
 
 def wr8(request):
