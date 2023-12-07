@@ -37,7 +37,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
-    "whitenoise.runserver_nostatic",#whitenoise
+    "whitenoise.runserver_nostatic",#whitenoise,while depolying using
     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,7 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'weatherapp.wsgi:application'
+WSGI_APPLICATION = 'weatherapp.wsgi.application'
 
 
 # Database
@@ -126,20 +126,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 #Method 1
-STATIC_URL = '/static/' #default
-STATICFILES_DIRS = [BASE_DIR / 'static/CSS']#add base_dir path #default
+STATIC_URL = 'static/' #default
+STATICFILES_DIRS = [BASE_DIR / 'static/CSS/']#add base_dir path #default
 # Method 2
 # STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
-if not DEBUG:
-   STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#if not DEBUG:
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #STATIC_ROOT = '' #new added
-   STORAGES = {
-    # ...
+#   STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-   STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+   
 #STATICFILES_DIRS = ('static',) #new added
 #STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage" #new added
 # Default primary key field type
