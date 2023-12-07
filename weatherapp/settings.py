@@ -39,7 +39,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",#whitenoise,while depolying using
-    'render.apps.RenderConfig',#for render.com
+    'weather.apps.RenderConfig',#for render.com
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
