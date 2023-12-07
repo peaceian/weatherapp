@@ -135,7 +135,7 @@ if not DEBUG:
    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 #STATIC_ROOT = '' #new added
 #   STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-   STORAGES = {
+   STATICFILES_STORAGE = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
