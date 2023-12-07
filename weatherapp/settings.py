@@ -28,8 +28,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-m%0cnsdx&(xv7
 DEBUG = False #False for render.com
 DEBUG = 'RENDER' not in os.environ #For render.com
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1','rotwr.onrender.com',]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','rotwr.onrender.com',]
+#ALLOWED_HOSTS = []
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME') #for render.com
 if RENDER_EXTERNAL_HOSTNAME:
@@ -39,7 +39,7 @@ if RENDER_EXTERNAL_HOSTNAME:
 
 INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",#whitenoise,while depolying using
-    
+    'render.apps.RenderConfig',#for render.com
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
