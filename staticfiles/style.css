@@ -1,7 +1,7 @@
 *{font-family:'Aoboshi One', serif,'Noto Sans TC', sans-serif;}
 body{background-color: #F1916D;margin: 0;padding: 0;max-width: 100%;}
 h1 {text-align: center;font-size:70px;text-decoration-color:ivory;text-shadow: 1px 0px black, -1px 0px black, 0px 1px black, 0px -1px black}
-#weathertable {table-layout:fixed;font-size: 16px;text-align: center;
+#weathertable {table-layout:fixed;text-align: center;
     color: aliceblue;width: 100%;border-collapse:collapse;border-spacing:2px;z-index: 10000}
 th {position:sticky;top: 0;background-color: #0b2048} 
 /*table first line fiexd top while scrolling the screen is need to have position and top. <table> has table-layout:fixed.*/
@@ -21,14 +21,33 @@ option > #selectlist:hover {background-color: #F1916D;color: #0b2048;}
 @media (max-width:1400px){
     #detail{display: none;}
     #weathercard{width: 60%;}
-    
+    .weatherlist{font-size:1.7rem ;}
+    #weatherlist{width: 180px;}
+    #detailcard {font-size: 1.4rem;}
 }
-@media (max-width:800px){
+@media (max-width:900px){
     #detail,#detail2 {display: none;}
     #reference {flex: 100%;width: 100%;}
     #weathercard {width: 100%;}
-    
+    .weatherlist{font-size:1.6rem ;}
+    #weatherlist{width: 160px;}
+    #detailcard {flex: 50%;width: 100%;flex-wrap: wrap;font-size: 1.2rem;}
+}
+@media (max-width:800px){
+    .weatherlist{font-size: 1.4rem;}
+    #detailcard {flex: 100%;width: 100%;flex-wrap: wrap;font-size: 1.5rem;}
 }
 @media (max-width:600px){
-    #detailcard {flex: 100%;width: 100%;flex-wrap: wrap;}
+    #weatherlist{width:120px}
+    .weatherlist{font-size: 1.0rem;}
+    #detailcard {flex: 100%;width: 100%;flex-wrap: wrap;font-size:1.6rem;}
+}
+@media (max-width:500px){
+    #weatherlist{display: none;}
+    .weatherlist{font-size: 1.2rem;}
+    #detailcard {flex: 100%;width: 100%;flex-wrap: wrap;font-size:1.6rem;}
+}
+@media (max-width:400px){
+    .weatherlist{font-size: 1.0rem;}
+    #detailcard {font-size:1.6rem;}
 }

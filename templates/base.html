@@ -12,8 +12,6 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="{% static 'style.css' %}" rel="stylesheet" type="text/css" />
-
-
 </head>
 
 <body>
@@ -30,7 +28,7 @@
                 <a href="/search" class="btn btn-jumpto">市鎮氣象 City Weather Search</a>
                 <a href="/detailone" class="btn btn-jumpto">詳細氣象 Weather Station Search</a>
                 <a href="/wr8" class="btn btn-jumpto">市鎮氣象列表 City Weather List</a>
-                <a href="/realtime" class="btn btn-jumpto">氣象站列表 Weather Station List</a><br>
+                <a href="/realtime" class="btn btn-jumpto">氣象站列表 Weather Station List</a>
                 <a href="https://opendata.cwa.gov.tw/index" class="btn btn-jumpto" target="_blank">中央氣象署</a>
                 <a href="https://www.cwa.gov.tw/V8/C/K/bilingual_glossary.html" class="btn btn-jumpto"
                     target="_blank">名詞對照表</a>
@@ -41,11 +39,12 @@
     {% endblock %}
     <br>
     <a href="#" id="topcontrol" title="Back to top"
-        style="position: fixed; bottom: 15px; right: 30px; cursor: pointer;"><i class="bi bi-arrow-up-square-fill display-6 opacity-50"></i></a>
+        style="position: fixed; bottom: 15px; right: 30px; cursor: pointer;"><i
+            class="bi bi-arrow-up-square-fill display-6 opacity-50"></i></a>
     <div class="d-flex row text-center pb-5">
         <div class="text-center col-4" id="reference"><a href="https://opendata.cwa.gov.tw/index"
                 class="text-decoration-none text-light" target="_blank">資料來源：中央氣象署</a></div>
-                <div class="col-4"></div>
+        <div class="col-4"></div>
         <div class="text-center col-4" id="reference"><a href="https://www.cwa.gov.tw/V8/C/K/bilingual_glossary.html"
                 class="text-decoration-none text-light" target="_blank">資料來源：名詞對照表</a></div>
     </div>

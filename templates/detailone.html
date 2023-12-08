@@ -12,7 +12,7 @@
     {% load static %}
     {% block content %}
     <header>
-        <h1>Weather Station Details</h1>
+        <h1 class="title">Weather Station Details</h1>
     </header>
     <script>
         town = new Array();
@@ -99,7 +99,7 @@
             {% if HXWDIR and HXWDT and DXTEMP and DXTEMPT and DNTEMP and DNTEMPT %}
             <div class="row">
                 <div class="col d-flex" >
-                    <div class="card p-5 mx-5  text-primary-emphasis bg-light border border-primary-subtle rounded-3" >
+                    <div class="card m-1 p-2 text-primary-emphasis bg-light border border-primary-subtle rounded-3" >
                         <div class="row text-start flex-wrap">
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">站名:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{StationName}}</span>
