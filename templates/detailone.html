@@ -88,15 +88,13 @@
             </div>
         </div>
         <main>
+            {% if StationName and StationId and obsTime and lat and lon and Altitude and CITY and CoCode and TOWN %}
+            {% if ToCode and WEATHER and Precipitation and WDIR and WDSD and TEMP and HUMD and PRES and PGS %}
+            {% if HXWDIR and HXWDT and DXTEMP and DXTEMPT and DNTEMP and DNTEMPT %}
             <div class="row px-5">
                 <p class="col-auto me-auto">Renew Time: 1HR</p>
                 <p class="col-auto">補充說明：-99皆表示，該時刻因故無資料。</p>
             </div>
-
-
-            {% if StationName and StationId and obsTime and lat and lon and Altitude and CITY and CoCode and TOWN %}
-            {% if ToCode and WEATHER and Precipitation and WDIR and WDSD and TEMP and HUMD and PRES and PGS %}
-            {% if HXWDIR and HXWDT and DXTEMP and DXTEMPT and DNTEMP and DNTEMPT %}
             <div class="row">
                 <div class="col d-flex" >
                     <div class="card m-1 p-2 text-primary-emphasis bg-light border border-primary-subtle rounded-3" >

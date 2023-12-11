@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Taiwan Weather Report,台灣天氣預報查詢">
+    <meta name="keyword" content="Taiwan,Weather,Report,台灣,天氣,氣象,預報">
+    <meta name="application-name" content="台灣天氣預報">
     <title>Weather Report</title>
     {% load static %}
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" width='16px' height='16px'/><!-- icon -->
@@ -22,10 +25,11 @@
 
         <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasTopLabel"><i class="bi bi-window-stack"></i>&nbsp;目錄 Index</h5>
+                <h5 class="offcanvas-title" id="offcanvasTopLabel"><i class="bi bi-window-stack"></i>&nbsp;Index</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
+                <a href="/home" class="btn btn-jumpto">首頁 Homepage</a>
                 <a href="/search" class="btn btn-jumpto">市鎮氣象 City Weather Search</a>
                 <a href="/detailone" class="btn btn-jumpto">詳細氣象 Weather Station Search</a>
                 <a href="/wr8" class="btn btn-jumpto">市鎮氣象列表 City Weather List</a>

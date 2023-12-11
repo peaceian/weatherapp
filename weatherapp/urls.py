@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from weather.views import wr8,realtimeweather,detailone,searchcity,advisory
+from weather.views import wr8,realtimeweather,detailone,searchcity,advisory,hello
 #from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +25,6 @@ urlpatterns = [
     path('detailone/',detailone),
     path('search/',searchcity),
     path('advisory/',advisory),
-    path('',searchcity),
+    path('home/',hello),
+    path('',hello),
 ]

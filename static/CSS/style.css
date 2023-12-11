@@ -5,15 +5,15 @@ h1 {text-align: center;font-size:70px;text-decoration-color:ivory;text-shadow: 1
     color: aliceblue;width: 100%;border-collapse:collapse;border-spacing:2px;z-index: 10000}
 th {position:sticky;top: 0;background-color: #0b2048} 
 /*table first line fiexd top while scrolling the screen is need to have position and top. <table> has table-layout:fixed.*/
-tr:nth-child(n) {background-image:linear-gradient(to right, #1B3358 0%, #F5D7DB 100%)}
-tr:nth-child(2n) {background-image:linear-gradient(to right, #06142E 0%, #F1916D 100%)}
-tr:hover {background-image:linear-gradient(to left, #281a07 0%,#5b472d 80%, #F1916D 100%);color: whitesmoke;backdrop-filter: blur(3px);}
+tr:nth-child(n) {background-color:#1B3358;}
+tr:nth-child(2n) {background-color:#F1916D;}
+tr:hover {background-image:linear-gradient(to left, #281a07 0%,#d79846 50%, #F1916D 100%);color: whitesmoke;backdrop-filter: blur(3px);}
 .btn-linkage {background-color: #aacce4ea;}
 .btn-linkage:hover {background-color: #50679e;}
 .btn-jumpto {background-color:#F5D7DB;color: #1B3358;}
 .btn-jumpto:hover {background-color: #1B3358;color:#F5D7DB;}
 .offcanvas-header {background-color: #F5D7DB;}
-.offcanvas-body {background-color:#F1916D;}
+.offcanvas-body {background-color:#1B3358;}
 option:nth-child(2n) {background-color:#2676bc78;}
 option > #selectlist:hover {background-color: #F1916D;color: #0b2048;}
 #weathercard {width: 50%;}

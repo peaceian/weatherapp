@@ -256,3 +256,6 @@ def advisory(request):
     all = zip(city,geocode,phenomena,significance,startime,endtime)
     all2 = zip(city,geocode,hazards)
     return render(request,'advisorieslist.html',locals())
+
+def hello(request):
+    return render(request,'homepage.html',locals())
