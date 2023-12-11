@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from weather.views import wr8,realtimeweather,detailone,searchcity,advisory
+#from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('wr8/',wr8),

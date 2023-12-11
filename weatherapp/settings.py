@@ -128,11 +128,11 @@ USE_TZ = True
 
 #Method 1
 STATIC_URL = '/static/' #default
-STATICFILES_DIRS = [BASE_DIR / 'static/CSS/']#add base_dir path #default
+STATICFILES_DIRS = [BASE_DIR / 'static/']#add base_dir path #default
 # Method 2
-# STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
+#STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
 #if not DEBUG:
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#fixed
 #STATIC_ROOT = '' #new added
 #   STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STORAGE = {
