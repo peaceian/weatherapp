@@ -193,7 +193,7 @@ def searchcity(request):
     if request.method == 'POST':
         city = request.POST['locationName']
         print(type(city))
-        city = urllib.parse.quote(city)
+        city = urllib.parse.quote(city)#漢字轉譯成%xx%xx
         print(type(city))
         source = urllib.request.urlopen("https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName="+city+"&Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67").read()
         print(source)
