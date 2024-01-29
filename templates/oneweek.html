@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Week Weather</title>
+</head>
+
+<body>
+    {% extends "base.html" %}
+    {% load static %}
+    {% block content %}
+    <header>
+        <h1 class="title">Weather Station Details</h1>
+    </header>
+    <script>
+        town = new Array();
+        town[0] = []
+        town[1] = ["鼻頭", "興海", "後壁湖", "山海", "竹坑", "加祿堂", "下寮", "塭仔", "林邊", "車城", "大漢山", "枋山", "枋寮", "楓港", "檳榔", "牡丹", "佳樂水", "墾丁", "旭海", "貓鼻頭", "墾雷", "四林格山", "大坪頂", "龍磐", "獅子", "牡丹池山", "高士", "白鷺", "內獅", "丹路", "九棚", "滿州", "保力", "南仁湖", "舊泰武", "里港", "東港", "竹田", "萬丹", "阿禮", "瑪家", "尾寮山", "春日", "來義", "琉球嶼", "屏東", "鹽埔", "赤山", "三地門", "潮州", "長治", "麟洛", "新埤", "南州", "佳冬", "高樹", "九如", "新園", "崁頂"];
+        town[2] = ["鯤鯓國小", "城西", "四草", "蘆竹溝", "蚵寮", "柳營", "下營", "東河", "佳里", "白河", "新營", "將軍", "鹽水", "學甲", "後壁", "關子嶺", "虎頭埤", "媽廟", "崎頂", "安南", "新市", "北寮", "善化", "曾文", "玉井", "王爺宮", "大內", "臺南市北區", "臺南市南區", "安平", "麻豆", "安定", "山上", "關廟", "官田", "西港", "仁德", "左鎮", "鹿寮", "北門", "七股"];
+        town[3] = ["汕尾", "鳳鼻頭", "蚵仔寮", "南寮", "文安", "興達", "前鎮", "茂林蝶谷", "小林", "月眉", "復興", "甲仙", "阿蓮", "萬山", "六龜", "左營", "溪埔", "美濃", "阿公店", "內門", "古亭坑", "鳳山", "鳳森", "新興", "湖內", "永安", "大社", "梓官", "路竹", "茄萣", "岡山", "彌陀", "橋頭", "仁武", "三民", "鼓山", "苓雅", "旗山", "大寮", "林園"];
+        town[4] = ["澳底", "野柳", "淡水觀海", "石門", "水湳洞", "六塊厝", "田寮", "板橋", "白沙灣", "三貂角", "福山植物園", "福山", "坪林", "四堵", "泰平", "五指山", "汐止", "三峽", "新莊", "山佳", "富貴角", "桶後", "瑞芳", "福隆", "雙溪", "鼻頭角", "大坪", "三和", "金山", "石碇", "火燒寮", "中和", "三芝", "八里", "蘆洲", "土城", "鶯歌", "永和", "五分山", "林口", "深坑", "五股", "屈尺", "三重"];
+        town[5] = ["科教館", "松山", "信義", "文山", "內湖", "天母", "社子", "大屯山", "平等", "石牌"];
+        town[6] = ["大溪漁港", "石城", "淡江大學蘭陽校園", "蘇澳", "壯圍", "北關", "玉蘭", "五結", "太平山", "南山", "雙連埤", "頭城", "大礁溪", "三星", "內城", "冬山", "礁溪", "龜山島", "羅東", "鶯子嶺", "大福", "坪林石牌", "東澳", "南澳", "翠峰湖", "樟樹山", "桃源谷", "西帽山", "西德山", "鴛鴦湖", "白嶺", "土場", "員山", "多加屯"];
+        town[7] = ["大武崙", "八斗子", "基隆嶼", "暖暖", "七堵"];
+        town[8] = ["竹圍", "中大臨海站", "觀音工業區", "新興坑尾", "國一五楊N44K", "大溪永福", "中壢", "蘆竹", "觀音", "平鎮", "大溪", "楊梅", "龍潭", "龜山", "復興", "桃園", "八德"];
+        town[9] = ["海天一線", "香山濕地", "新竹市東區"];
+        town[10] = ["外湖", "關西", "橫山", "新豐", "雪霸", "竹東", "寶山", "湖口", "梅花", "峨眉", "打鐵坑"];
+        town[11] = ["海埔", "通霄漁港", "龍鳳", "高鐵苗栗", "頭份", "獅潭", "大河", "苗栗", "銅鑼", "西湖", "苑裡", "三義", "造橋", "竹南", "南庄", "馬都安", "大湖", "明德", "通霄", "卓蘭"];
+        town[12] = ["松柏", "溫寮", "臺中電廠", "桃山A", "雪山東峰A", "雪山圈谷A", "審馬陣A", "南湖圈谷A", "大安", "后里", "豐原", "潭子", "清水", "外埔", "龍井", "石岡", "中坑", "烏石坑", "中竹林", "大里", "烏日", "西屯", "南屯", "大坑", "東勢", "梨山", "大甲", "神岡", "新社", "大雅(中科園區)", "霧峰"];
+        town[13] = ["防潮門", "福寶", "三豐", "永靖", "竹塘", "伸港", "福興", "秀水", "埔鹽", "埔心", "埤頭", "社頭", "二水", "芳苑", "溪湖", "鹿港", "員林", "芬園", "花壇", "線西", "二林", "溪州", "大城"];
+        town[14] = ["箔子寮", "高鐵雲林", "雲林東勢", "草嶺", "崙背", "虎尾", "四湖", "宜梧", "褒忠", "二崙", "西螺", "土庫", "斗南", "斗六", "北港", "林內", "大埤", "莿桐", "臺西", "水林", "元長", "棋山", "蔦松"];
+        town[15] = ["好美里", "新美", "奮起湖", "東後寮", "番路", "溪口", "竹崎", "中埔", "大林", "東石", "水上", "馬頭山", "表湖", "朴子", "太保", "民雄", "布袋", "鹿草", "六腳", "新港", "嘉義梅山", "里佳", "達邦", "茶山"];
+        town[16] = ["水試所成功", "蘭嶼高中", "蘭嶼燈塔", "長濱", "東河", "綠島", "下馬", "向陽", "紅石", "池上", "鹿野", "關山", "土阪", "大溪山", "南田", "金崙", "太麻里", "知本", "金峰嘉蘭", "延平", "石寧山", "七塊厝", "知本(水試所)", "香蘭", "加津林", "勝林山", "山豬窟", "歷坵", "檳榔四格山", "金崙山", "都歷", "瑞和", "達仁林場"];
+        town[17] = ["東莒"];
+        town[18] = ["西嶼", "花嶼"];
+        town[19] = ["金沙", "金寧", "烏坵"];
+        town[20] = ["天祥", "東華", "鯉魚潭", "水源", "鳳林山", "光復", "西林", "月眉山", "大坑", "加路蘭山", "水璉", "豐濱", "明里", "玉里", "舞鶴", "佳心", "富源", "吉安光華", "鳳林", "卓溪", "新城", "富世", "萬榮", "瑞穗", "瑞穗林道", "蕃薯寮", "德武", "赤柯山", "東里", "清水斷崖", "清水林道", "安通山", "靜浦", "富里", "和中", "和平林道", "和平", "大禹嶺"];
+        town[21] = ["魚池", "國姓", "仁愛", "水里", "集集", "名間", "萬大林道", "梅峰", "玉山風口", "小奇萊", "奇萊稜線A", "合歡山", "中寮", "鳳凰", "草屯", "竹山", "埔里", "信義", "昆陽", "廬山", "神木村", "南投"];
+        town[22] = ["嘉義市東區"];
+        function renew(index) {
+            for (var i = 0; i < town[index].length; i++)
+                document.city.town.options[i] = new Option(town[index][i], town[index][i]);	// 設定新選項，(文本,值)
+            document.city.town.length = town[index].length;	// 刪除多餘的選項
+        }
+    </script>
+
+    <div class="container-fluid">
+        <div class="row justify-content-md-center m-5 rounded-3">
+            <div class="col-md-auto">
+                <form name="city" method="post" class="col-md-12" accept-charset="UTF-8" action="">
+                    {% csrf_token %}
+                    <div class="form-group input-group mb-3">
+                        <select class="form-select" name="locationName" id="locationName">
+                            <option value="">選擇縣市</option>
+                            <option value="">---</option>
+                            <option value="基隆市">基隆市</option>
+                            <option value="臺北市">臺北市</option>
+                            <option value="新北市">新北市</option>
+                            <option value="桃園市">桃園市</option>
+                            <option value="新竹市">新竹市</option>
+                            <option value="新竹縣">新竹縣</option>
+                            <option value="苗栗縣">苗栗縣</option>
+                            <option value="臺中市">臺中市</option>
+                            <option value="彰化縣">彰化縣</option>
+                            <option value="雲林縣">雲林縣</option>
+                            <option value="嘉義市">嘉義市</option>
+                            <option value="嘉義縣">嘉義縣</option>
+                            <option value="臺南市">臺南市</option>
+                            <option value="高雄市">高雄市</option>
+                            <option value="屏東縣">屏東縣</option>
+                            <option value="南投縣">南投縣</option>
+                            <option value="宜蘭縣">宜蘭縣</option>
+                            <option value="花蓮縣">花蓮縣</option>
+                            <option value="臺東縣">臺東縣</option>
+                            <option value="澎湖縣">澎湖縣</option>
+                            <option value="金門縣">金門縣</option>
+                            <option value="連江縣">連江縣</option>
+                        </select>
+                        <!-- <select name="limit" id="limit" class="form-select">
+                            <option value="">限制資料數量</option>
+                            <option value="">---</option>
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                        </select> -->
+                        <!-- <select name="offset" id="offset" class="form-select"> 
+                            <option value="0">跳過資料數量</option>
+                            <option value="0">---</option>
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                        </select> -->
+                        <select name="element" id="element" class="form-select">
+                            <option value="" selected>指定天氣預報因子</option>
+                            <option value="">---</option>
+                            <option value="MinCI">最小舒適度指數</option>
+                            <option value="MaxAT">最高體感溫度</option>
+                            <option value="MaxCI">最大舒適度指數</option>
+                            <option value="MinT">最低溫度</option>
+                            <option value="UVI">紫外線指數</option>
+                            <option value="MinAT">最低體感溫度</option>
+                            <option value="MaxT">最高溫度</option>
+                            <option value="WS">最大風速</option>
+                            <option value="WD">風向</option>
+                            <option value="TD">平均露點溫度</option>
+                            <option value="PoP12h">12小時降雨機率</option>
+                            <option value="T">平均溫度</option>
+                            <option value="RH">平均相對濕度</option>
+                            <option value="Wx">天氣現象</option>
+                            <option value="WeatherDescription">天氣預報綜合描述</option>
+                        </select>
+                        <!-- <input type="text" name="detailone" class="form-control" -->
+                        <!-- placeholder="Choose Location of Observation......" /> -->
+                        <button type="submit" class="btn btn-danger">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row px-5">
+            <p class="col-auto me-auto">Renew Time: 6HR</p>
+            <p class="col-auto">補充說明：-99皆表示，該時刻因故無資料。</p>
+        </div>
+
+        
+        
+        
+        <table style="font-size: 1.0rem;text-align:center" id="weathertable">
+            <thead>
+                <tr>
+                    <th>資料描述</th>
+                    <th id="detail">縣市</th>
+                    <th id="detail">郵遞區號</th>
+                    <th>緯度</th>
+                    <th>經度</th>
+                    <th>氣象</th>
+                    <th id="detail" style="width: 170px;">開始時間</th>
+                    <th id="detail" style="width: 170px;">結束時間</th>
+                    <th>數值</th>
+                    <th>單位
+                    </th>
+                </tr>
+            </thead>
+            {% for dataDescription,locationName,geocode,lat,lon,description,startTime,endTime,elementInt,measures in all %}     
+            <!-- extracted data is in the all=zip(),that in all using. in locations will print the 22data in 1 space [1*22]*22 -->
+            <tr>
+                <td>{{dataDescription}}</td>
+                <td id="detail">{{locationName}}</td>
+                <td id="detail">{{geocode}}</td>
+                <td>{{lat}}</td>
+                <td>{{lon}}</td>
+                <td id="detail2">{{description}}</td>
+                <td id="detail">{{startTime}}</td>
+                <td id="detail">{{endTime}}</td>
+                <td>{{elementInt}}</td>
+                <td>{{measures}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+
+    {% endblock %}
+</body>
+
+</html>

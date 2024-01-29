@@ -1,5 +1,5 @@
 *{font-family:'Aoboshi One', serif,'Noto Sans TC', sans-serif;}
-body{background-color: #F1916D;margin: 0;padding: 0;max-width: 100%;}
+body{background-image:linear-gradient(to right bottom, #93b10baf 0%, #93656ba5 100%);margin: 0;padding: 0;max-width: 100%;}
 h1 {text-align: center;font-size:70px;text-decoration-color:ivory;text-shadow: 1px 0px black, -1px 0px black, 0px 1px black, 0px -1px black}
 #weathertable {table-layout:fixed;text-align: center;
     color: aliceblue;width: 100%;border-collapse:collapse;border-spacing:2px;z-index: 10000}
@@ -16,7 +16,7 @@ tr:hover {background-image:linear-gradient(to left, #281a07 0%,#d79846 50%, #F19
 .offcanvas-body {background-color:#1B3358;}
 option:nth-child(2n) {background-color:#2676bc78;}
 option > #selectlist:hover {background-color: #F1916D;color: #0b2048;}
-#weathercard {width: 50%;}
+#weathercard {width: 50%;background-color: #1b335868;box-shadow: blur(3px);}
 
 @media (max-width:1400px){
     #detail{display: none;}

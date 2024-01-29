@@ -5,13 +5,14 @@ import json
 from json import loads
 import math
 import urllib.request #讀取url
+from urllib.request import urlopen
 import re
 import urllib.parse #解析url
 from django.http import HttpResponse
 import random
 import urllib3
 urllib3.disable_warnings()#Maybe appear InsecureRequestWarning, this could it disable.
-
+import collections
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Create your views here.
@@ -138,6 +139,7 @@ def realtimeweather(request):
         WEATHER.append(i['WeatherElement']['Weather'])
         CITY.append(i['GeoInfo']['CountyName'])
         TOWN.append(i['GeoInfo']['TownName'])
+    print(lat,lon,StationName,StationId,obsTime,Altitude,WDIR,WDSD,TEMP,HUMD,PRES,WEATHER,CITY,TOWN)
 
 
     all = zip(lat,lon,StationName,StationId,obsTime,Altitude,WDIR,WDSD,TEMP,HUMD,PRES,WEATHER,CITY,TOWN)
@@ -220,42 +222,226 @@ def searchcity(request):
 
     return render(request,'form.html',data) 
 
-def advisory(request):
-    url='https://opendata.cwa.gov.tw/api/v1/rest/datastore/W-C0033-001?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67'
-    data = requests.get(url)
-    data_json = data.json()
-    locations = data_json['records']['location']
+# def advisory(request):
+    # url='https://opendata.cwa.gov.tw/api/v1/rest/datastore/W-C0033-001?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67'
+    # data = requests.get(url)
+    # data_json = data.json()
+    # locations = data_json['records']['location']
 
-    city = []
-    geocode = []
-    phenomena = []
-    significance = []
-    startime = []
-    endtime = []
-    hazards = []
-    try:
+    # city = []
+    # geocode = []
+    # phenomena = []
+    # significance = []
+    # startime = []
+    # endtime = []
+    # hazards = []
+    
 
-        for i in locations: 
-            city.append(i['locationName'])    # 縣市名稱
-            geocode.append(i['geocode'])    # 郵遞區號
-            phenomena.append(i['hazardConditions']['hazards'])
-            phenomena.append(i['hazardConditions']['hazards']['info']['phenomena'])  # 現象
-            significance.append(i['hazardConditions']['hazards']['info']['significance'])  # 特報
-            startime.append(i['hazardConditions']['hazards']['validTime']['startTime'])    # 開始時間
-            endtime.append(i['hazardConditions']['hazards']['validTime']['endTime'])   # 降雨機率
-            print(f'城市：{city}，城市碼：{geocode}，{phenomena}{significance}')
-    except:
+    # for i in locations: 
+        # city.append(i['locationName'])    # 縣市名稱
+        # geocode.append(i['geocode'])    # 郵遞區號
+        # if ['hazardConditions']['hazards']== True:
+            # hazards=[]
+            # phenomena.append(i['hazardConditions']['hazards'])
+        # else:
+            # phenomena.append(i['hazardConditions']['hazards'][0]['info'][1]['phenomena'])  # 現象
+            # significance.append(i['hazardConditions']['hazards'][0]['info'][2]['significance'])  # 特報
+            # startime.append(i['hazardConditions']['hazards']['validTime']['startTime'])    # 開始時間
+            # endtime.append(i['hazardConditions']['hazards']['validTime']['endTime'])   # 降雨機率
+            # print(f'城市：{city}，城市碼：{geocode}，{phenomena}{significance}')
 
-        for i in locations: 
-            city.append(i['locationName'])    # 縣市名稱
-            geocode.append(i['geocode'])    # 郵遞區號
-            hazards.append(i['hazardConditions']['hazards'])
-            print(f'城市：{city}，城市碼：{geocode}，{hazards}')
+            # phenomena.append(i['hazardConditions']['hazards'])
+    
+    # for i in locations: 
+        # city.append(i['locationName'])    # 縣市名稱
+        # geocode.append(i['geocode'])    # 郵遞區號
+        # hazards.append(i['hazardConditions']['hazards'])
+        # print(f'城市：{city}，城市碼：{geocode}，{hazards}')
 
 
-    all = zip(city,geocode,phenomena,significance,startime,endtime)
-    all2 = zip(city,geocode,hazards)
-    return render(request,'advisorieslist.html',locals())
+    # all = zip(city,geocode,phenomena,significance,startime,endtime, hazards)
+    # all2 = zip(city,geocode,hazards)
+    # return render(request,'advisorieslist.html',locals())
 
 def hello(request):
     return render(request,'homepage.html',locals())
+
+def oneweek(request):
+    if request.method == 'POST':
+        locationName = request.POST['locationName']#.get is to get str
+        #limit = request.POST['limit']
+        #offset = request.POST['offset']
+        #element = request.POST['element']
+        #print(locationName,limit,offset,element)
+        city = urllib.parse.quote(locationName)#漢字轉譯
+        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&limit=10&offset=10&locationName=%E5%AE%9C%E8%98%AD%E7%B8%A3&elementName=MaxAT'
+        url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationName='+city
+        #url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&limit='+ limit +'&offset='+ offset + '&locationName=' + city + '&elementName=' + element).read()
+        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&limit={limit}&offset={offset}&locationName={city}&elementName={element}'
+        #datalist = json.loads(url)  
+        response = requests.get(url)
+        datalist = response.json()
+        #datalist = data_json['records']['locations']
+        
+        datasetDescription = []
+        locationName = []
+        geocode = []
+        lat = []
+        lon = []
+        description = []
+        startTime = []
+        endTime = []
+        elementInt = []
+        measures = []
+        
+        
+        
+        for i in datalist:
+            datasetDescription.append(i['records']['locations'][0]['datasetDescription'])
+            locationName.append(i['records']['locations'][0]['location'][0]['locationName'])
+            geocode.append(i['records']['locations'][0]['location'][0]['geocode'])
+            lat.append(i['records']['locations'][0]['location'][0]['lat'])
+            lon.append(i['records']['locations'][0]['location'][0]['lon'])
+            description.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['description'])
+            startTime.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][0]['startTime'])
+            endTime.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][1]['endTime'])
+            elementInt.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['value'])
+            measures.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['measures'])
+        print(f'datasetDescription:{datasetDescription}locationName:{locationName}geocode:{geocode}lat:{lat}lon:{lon}description:{description}startTime:{startTime}endTime:{endTime}elementInt:{elementInt}measure:{measures}')
+        
+        # for data in datalist:
+            # datasetDescription.append(data['datasetDescription'])
+            # locationName.append(data['location'][0]['locationName'])
+            # geocode.append(data['location'][0]['geocode'])
+            # lat.append(data['location'][0]['lat'])
+            # lon.append(data['location'][0]['lon'])
+            # description.append(data['location'][0]['weatherElement'][0]['description'])
+            # startTime.append(data['location'][0]['weatherElement'][0]['time'][0]['startTime'])
+            # endTime.append(data['location'][0]['weatherElement'][0]['time'][1]['endTime'])
+            # elementInt.append(data['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['value'])
+            # measures.append(data['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['measures'])
+            # print(f'datasetDescription:{datasetDescription}locationName:{locationName}geocode:{geocode}lat:{lat}lon:{lon}description:{description}startTime:{startTime}endTime:{endTime}elementInt:{elementInt}measure:{measures}')
+        all = zip(datasetDescription,locationName,geocode,lat,lon,description,startTime,endTime,elementInt,measures)
+        #for data in datalist:
+        #    data = {'datasetDescription':str(datalist['records']['locations'][0]['datasetDescription']),
+        #     'locationName':str(datalist['records']['locations'][0]['location'][0]['locationName']),
+        #         'geocode':str(datalist['records']['locations'][0]['location'][0]['geocode']),
+        #         'lat':str(datalist['records']['locations'][0]['location'][0]['lat']),
+        #         'lon':str(datalist['records']['locations'][0]['location'][0]['lon']),
+        #         'description':str(datalist['records']['locations'][0]['location'][0]['weatherElement'][0]['description']),
+        #         'startTime':str(datalist['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][0]['startTime']),
+        #         'endTime':str(datalist['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][1]['endTime']),
+        #         'elementInt':str(datalist['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['value']),
+        #         'measures':str(datalist['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['measures']),
+                 #'elementValue':str(datalist['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][1]['value']),
+                 #'measuressec':str(datalist['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][1]['measures']),  
+        # }
+        #    print(data)
+    else:
+         data = {}
+         print(data)
+
+    return render(request,'oneweek.html',locals())
+
+def cityweek(request):
+    if request.method == 'POST':
+        city = request.POST['city']#.get is to get str
+        town = request.POST['town']
+        elementName = request.POST['element']
+        #print(type(elementName))
+        town = urllib.parse.quote(town)
+        print(town)
+        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationId=F-D0047-{city}&locationName={town}'
+        url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationId=F-D0047-'+city+'&locationName='+town+'&elementName='+elementName).read()
+        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationId=F-D0047-'+city+'&locationName='+town
+        #print(url)
+        #request = requests.get(url)
+        response = json.loads(url)
+        #print(response)
+        datacity = response['records']['locations']
+        datalist = response['records']['locations'][0]['location']
+        weather = response['records']['locations'][0]['location'][0]['weatherElement']
+        time = response['records']['locations'][0]['location'][0]['weatherElement'][0]['time']
+        element = response['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][0]['elementValue']
+        Value1 = response['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][0]['elementValue'][0]['value']
+        measures1 = response['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][0]['elementValue'][0]['measures']
+        #print(datalist)
+        #print(type(datalist))
+        #print(weather)    
+        #print(elementpre)
+        
+        #create a dict method
+        datalocations = []
+        for data in datacity:
+            datalocations.append({
+                'datasetDescription':data['datasetDescription'],
+                'locationsName':data['locationsName'],
+                'dataid':data['dataid'],
+            })
+        print(datalocations)
+        
+        #create a list method 
+        locationName = []
+        geocode = []
+        lat = []
+        lon = []
+        for data in datalist:
+                locationName.append(data['locationName'])
+                geocode.append(data['geocode'])
+                lat.append(data['lat'])
+                lon.append(data['lon'])
+        print(locationName,geocode,lat,lon)
+    #loop area
+    #weatherelement 
+        description = []
+        for data in weather:
+            description.append(data['description'])
+        print(description)
+    
+    #time area for 1 week
+        starttime = []
+        endtime = []
+        for data in time:
+            starttime.append(data['startTime'])
+            endtime.append(data['endTime'])
+        print(starttime)
+        print(endtime)
+    
+        
+        #elementValue determine
+        elementValue1 = []
+        elementValue2 = []
+        #impact!!
+        for weatherElement in time:
+            elementValue = weatherElement['elementValue']
+            if len(elementValue) == 2:
+                elementValue1.append(elementValue[0])
+                elementValue2.append(elementValue[1])
+            else:
+                elementValue1.append(elementValue[0])
+                
+        print(type(elementValue1))    
+        print(elementValue1,elementValue2)
+        
+    
+    
+        context = {'datalocations':str(datalocations),
+                   'locationName':locationName,
+                   'geocode':geocode,
+                   'lat':lat,
+                   'lon':lon,
+                   'description':description,
+                   'starttime':starttime,
+                   'endtime':endtime,
+                   'elementValue1':str(elementValue1),
+                   'elementValue2':str(elementValue2),
+                   #'elementValue':elementValue,
+                   #'measuressec':measuressec,
+               }
+        all1 = zip(locationName,geocode,lat,lon,description)
+        print(context)
+    else:
+        print('error')
+        
+    return render(request,'cityweek.html',locals())
+
