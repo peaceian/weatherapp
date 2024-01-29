@@ -1,12 +1,18 @@
 *{font-family:'Aoboshi One', serif,'Noto Sans TC', sans-serif;box-sizing:border-box;}
-body{background-image:linear-gradient(to right, #93b10baf 0%, #93656ba5 100%);margin: 0;padding: 0;max-width: 100%;}
+body{background-image:linear-gradient(to right bottom, #93b10baf 0%, #93656ba5 100%);margin: 0;padding: 0;max-width: 100%;}
 .flexrow{display:flex;flex-flow: row nowrap;width: 100%;margin: 10px 5px;}
-.column{flex: 100%;flex-wrap: wrap;max-height:100%;margin: 1px 5px;padding: 5px 3px;text-align:center;min-width: 80px;box-shadow: black 2px 2px 15px;backdrop-filter: blur(20px);}
-.start{background-color: rgb(84, 240, 167, 0.5);border-radius: 10px;}
-.end{background-color: rgb(100, 149, 237, 0.5);border-radius: 10px;}
-.value1{background-color: rgb(255, 255, 0, 0.5);border-radius: 10px;}
-.value2{background-color: rgb(76, 111, 111, 0.5);border-radius: 10px;}
+.column{flex: 100%;flex-wrap: wrap;max-height:100%;margin: 1px 5px;padding: 5px 3px;text-align:center;min-width: 80px;box-shadow: black 2px 2px 10px;backdrop-filter: blur(20px);border: 0.8px groove rgba(255, 255, 255, 0.18);color: rgb(0, 0, 0);}
+/* .start{background-color: rgb(84, 240, 167, 0.5);border-radius: 10px;} */
+/* .end{background-color: rgb(100, 149, 237, 0.5);border-radius: 10px;} */
+/* .value1{background-color: rgb(255, 255, 0, 0.5);border-radius: 10px;} */
+/* .value2{background-color: rgb(76, 111, 111, 0.5);border-radius: 10px;} */
+.start{background-color: rgba(255, 255, 255, 0.3);border-radius: 10px;}
+.end{background-color: rgba(255, 255, 255, 0.5);border-radius: 10px;}
+.value1{background-color: rgba(255, 255, 252, 0.6);border-radius: 10px;}
+.value2{background-color: rgba(255, 255, 255, 0.7);border-radius: 10px;}
+
 .table{display: flex;justify-content: center;align-items: center;}/* table at center */
 .td{background-color: rgba(0, 0, 255, 0);}
 .form{width: 750px;margin: 5px;padding: 10px;text-align: center;}
 .form-div{margin: 0px auto;}
+option:hover {color: rgb(234, 209, 50);background-color: cornflowerblue;transform: scale(1.2);transition: cubic-bezier(0.075, 0.82, 0.165, 1);}

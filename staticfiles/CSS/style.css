@@ -1,13 +1,14 @@
 *{font-family:'Aoboshi One', serif,'Noto Sans TC', sans-serif;}
-body{background-image:linear-gradient(to right bottom, #93b10baf 0%, #93656ba5 100%);margin: 0;padding: 0;max-width: 100%;}
+body{background-image:linear-gradient(to right bottom, #b1ab0baf 0%, #a45761a5 100%);margin: 0;padding: 0;max-width: 100%;}
 h1 {text-align: center;font-size:70px;text-decoration-color:ivory;text-shadow: 1px 0px black, -1px 0px black, 0px 1px black, 0px -1px black}
 #weathertable {table-layout:fixed;text-align: center;
     color: aliceblue;width: 100%;border-collapse:collapse;border-spacing:2px;z-index: 10000}
-th {position:sticky;top: 0;background-color: #0b2048} 
+th {position:sticky;top: 0;background-color: #153b81} 
 /*table first line fiexd top while scrolling the screen is need to have position and top. <table> has table-layout:fixed.*/
-tr:nth-child(n) {background-color:#1B3358;}
-tr:nth-child(2n) {background-color:#F1916D;}
-tr:hover {background-image:linear-gradient(to left, #281a07 0%,#d79846 50%, #F1916D 100%);color: whitesmoke;backdrop-filter: blur(3px);}
+tr{border:groove rgba(0, 0, 0, 0.7) 3px;border-collapse:separate;}
+tr:nth-child(n) {background-image:linear-gradient(to left, rgba(49, 88, 229, 0.8)0%,rgba(18, 148, 177, 0) 100%);box-shadow: black 2px 2px 10px;}
+tr:nth-child(2n) {background-image:linear-gradient(to right, rgba(231, 116, 74, 0.8)0%,rgba(199, 148, 82, 0) 100%);box-shadow: black 2px 2px 10px;}
+tr:hover {background-color: rgba(255, 255, 255, 0.7);color: rgb(0, 0, 0);box-shadow: black 2px 2px 10px;backdrop-filter: blur(20px);transform: scale(1.02);transition:ease-in 1s;}
 .btn-linkage {background-color: #aacce4ea;}
 .btn-linkage:hover {background-color: #50679e;}
 .btn-jumpto {background-color:#F5D7DB;color: #1B3358;}
@@ -15,8 +16,11 @@ tr:hover {background-image:linear-gradient(to left, #281a07 0%,#d79846 50%, #F19
 .offcanvas-header {background-color: #F5D7DB;}
 .offcanvas-body {background-color:#1B3358;}
 option:nth-child(2n) {background-color:#2676bc78;}
-option > #selectlist:hover {background-color: #F1916D;color: #0b2048;}
-#weathercard {width: 50%;background-color: #1b335868;box-shadow: blur(3px);}
+/* the card style part */
+.title {background-image:linear-gradient(to right bottom, rgba(20, 105, 150, 0.868)0%,rgba(184, 89, 129, 1)50%, rgb(214, 34, 91)100%);box-shadow: black 2px 2px 5px;backdrop-filter:blur(20px);color:antiquewhite;}
+.item {background-image:linear-gradient(to right bottom, rgba(200, 138, 44, 0.785)0%,rgba(180, 142, 45, 0.7)50%,rgba(236, 219, 32, 0.7)100%);box-shadow: black 2px 2px 5px;backdrop-filter:blur(20px);}
+.data {background-image:linear-gradient(to right bottom, rgba(9, 189, 129, 0.707)0%,rgba(23, 181, 68, 0.3)50%,rgba(18, 186, 164, 0.7)100%);box-shadow: black 2px 2px 5px;backdrop-filter: blur(20px);}
+#weathercard {width: 50%;background-color:rgba(255, 255, 255, 0.24);box-shadow: black 2px 2px 20px;backdrop-filter: blur(20px);}
 
 @media (max-width:1400px){
     #detail{display: none;}

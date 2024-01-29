@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +12,8 @@
 </head>
 
 <body>
-    {% extends "base.html" %}
-    {% load static %}
-    {% block content %}
     <header>
-        <h1 class="title">Taiwan Weather Report Search</h1>
+        <h1>Taiwan Weather Report Search</h1>
     </header>
     <div class="container-fluid">
         <div class="row justify-content-md-center m-5 rounded-3">
@@ -56,17 +57,25 @@
                 {% if locationName and wr8 and maxt8 and mint8 and ci8 and pop8 and starttime %}
             </div>
             <p class="px-5">Renew Time: 6HR</p>
-            <div class="col d-flex justify-content-center" >
+            <div class="col d-flex justify-content-center">
                 <div class="card border-danger-subtle mb-3" id="weathercard">
-                    <div class="card-header display-5 bg-primary-subtle opacity-75 text-primary-emphasis">{{locationName}}</div>
-                    <div class="card-body text-primary-emphasis row justify-content-around">
-                        <h4><span class="badge bg-danger opacity-75 ">City：</span>&nbsp;<span class="badge bg-primary opacity-75 data">{{locationName}}</span></h4>
-                        <h4><span class="badge bg-danger opacity-75 ">Weather：</span>&nbsp;<span class="badge bg-primary opacity-75 data">{{wr8}}</span></h4>
-                        <h4><span class="badge bg-danger opacity-75 ">Max Tempature(℃)：</span>&nbsp;<span class="badge bg-primary opacity-75 data">{{maxt8}}</span></h4>
-                        <h4><span class="badge bg-danger opacity-75 ">Min Tempature(℃)：</span>&nbsp;<span class="badge bg-primary opacity-75 data">{{mint8}}</span></h4>
-                        <h4><span class="badge bg-danger opacity-75 ">Comfort index：</span>&nbsp;<span class="badge bg-primary opacity-75 data">{{ci8}}</span></h4>
-                        <h4><span class="badge bg-danger opacity-75 ">Precipitation(％)：</span>&nbsp;<span class="badge bg-primary opacity-75 data">{{pop8}}</span></h4>
-                        <h4><span class="badge bg-danger opacity-75 ">Start Time：</span>&nbsp;<span class="badge bg-primary opacity-75 data">{{starttime}}</span></h4>
+                    <div class="card-header display-5 title">
+                        {{locationName}}</div>
+                    <div class="card-body row justify-content-around">
+                        <h4><span class="badge item">City：</span>&nbsp;<span
+                                class="badge data">{{locationName}}</span></h4>
+                        <h4><span class="badge item">Weather：</span>&nbsp;<span
+                                class="badge data">{{wr8}}</span></h4>
+                        <h4><span class="badge item">Max Tempature(℃)：</span>&nbsp;<span
+                                class="badge data">{{maxt8}}</span></h4>
+                        <h4><span class="badge item">Min Tempature(℃)：</span>&nbsp;<span
+                                class="badge data">{{mint8}}</span></h4>
+                        <h4><span class="badge item">Comfort index：</span>&nbsp;<span
+                                class="badge data">{{ci8}}</span></h4>
+                        <h4><span class="badge item">Precipitation(％)：</span>&nbsp;<span
+                                class="badge data">{{pop8}}</span></h4>
+                        <h4><span class="badge item">Start Time：</span>&nbsp;<span
+                                class="badge data">{{starttime}}</span></h4>
                     </div>
                 </div>
             </div>

@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +12,8 @@
 </head>
 
 <body>
-    {% extends "base.html" %}
-    {% load static %}
-    {% block content %}
     <header>
-        <h1 class="title">Weather Station Details</h1>
+        <h1>Weather Station Details</h1>
     </header>
     <script>
         town = new Array();
@@ -96,8 +97,8 @@
                 <p class="col-auto">補充說明：-99皆表示，該時刻因故無資料。</p>
             </div>
             <div class="row">
-                <div class="col d-flex" >
-                    <div class="card m-1 p-2 text-primary-emphasis bg-light border border-primary-subtle rounded-3" >
+                <div class="col d-flex">
+                    <div class="card m-1 p-2 text-primary-emphasis bg-light border border-primary-subtle rounded-3">
                         <div class="row text-start flex-wrap">
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">站名:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{StationName}}</span>
@@ -105,7 +106,8 @@
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">Id:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{StationId}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">觀察時間:</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">觀察時間:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{obsTime}}</span>
                             </h4>
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">緯度:</span>&nbsp;
@@ -114,61 +116,77 @@
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">經度:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{lon}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">站高(m):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">站高(m):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{Altitude}}</span>
                             </h4>
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">城市:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{CITY}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">郵遞區號:</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">郵遞區號:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{CoCode}}</span>
                             </h4>
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">鄉鎮:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{TOWN}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">郵遞區號:</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">郵遞區號:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{ToCode}}</span>
                             </h4>
                             <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">氣象:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{WEATHER}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">降雨(mm):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">降雨(mm):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{Precipitation}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">風向(°):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">風向(°):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{WDIR}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">風速(m/s):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">風速(m/s):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{WDSD}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">溫度(℃):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">溫度(℃):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{TEMP}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">溼度(％):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">溼度(％):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{HUMD}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">氣壓(hPa):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">氣壓(hPa):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{PRES}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">最大瞬間風速(m/s):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">最大瞬間風速(m/s):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{PGS}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">最大瞬間風向(°):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">最大瞬間風向(°):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{HXWDIR}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">最大瞬間風時:</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">最大瞬間風時:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{HXWDT}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">今日最高溫(℃):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">今日最高溫(℃):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{DXTEMP}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">最高溫發生時:</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">最高溫發生時:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{DXTEMPT}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">今日最低溫(℃):</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">今日最低溫(℃):</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{DNTEMP}}</span>
                             </h4>
-                            <h4 class="col-6" id="detailcard"><span class="badge bg-danger opacity-75">最低溫發生時:</span>&nbsp;
+                            <h4 class="col-6" id="detailcard"><span
+                                    class="badge bg-danger opacity-75">最低溫發生時:</span>&nbsp;
                                 <span class="badge bg-primary opacity-75 data">{{DNTEMPT}}</span>
                             </h4>
                         </div>

@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,13 +11,10 @@
 </head>
 
 <body>
-    {% extends "base.html" %}
-    {% load static %}
-    {% block content %}
     <header>
-        <h1 class="title">Taiwan Weather Report</h1>
+        <h1>Taiwan Weather Report</h1>
     </header>
-    
+
     <div class="container-fluid mt-5">
         <main>
             <table id="weathertable">
