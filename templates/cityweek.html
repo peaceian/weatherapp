@@ -47,7 +47,7 @@
     </script>
 
     <div class="container">
-        <div class="flexrow  m-1 rounded-3">
+        <div class="form-row rounded-3">
             <div class="form-div col-md-auto">
                 <form name="city" method="post" class="form" accept-charset="UTF-8" action="">
                     {% csrf_token %}
@@ -107,8 +107,7 @@
                 </form>
             </div>
         </div>
-        <main>
-
+        <!-- <main> -->
             {% for data in datalocations %}
             <h2>{{data.datasetDescription}}</h1>
                 <div>
@@ -136,6 +135,8 @@
                 <!-- <table class="table"> -->
                     <!-- <tr> -->
                         <!-- <td> -->
+                        <br>
+                        <div class="flexbox">
                         <div class="flexrow">
                             {% for start in starttime %}
                             <div class="start column">{{start}}</div>
@@ -177,17 +178,14 @@
                         <!-- </td> -->
                     <!-- </tr> -->
                 <!-- </table> -->
+                        </div>
+
+
+                
 
 
 
-                <div class="row px-5">
-                    <p class="col-auto me-auto">Renew Time: 12HR</p>
-                </div>
-
-
-
-
-        </main>
+        <!-- </main> -->
 
     </div>
 
