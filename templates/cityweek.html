@@ -108,84 +108,84 @@
             </div>
         </div>
         <!-- <main> -->
-            {% for data in datalocations %}
-            <h2>{{data.datasetDescription}}</h1>
+        {% for data in datalocations %}
+        <h2>{{data.datasetDescription}}</h1>
+            <div>
                 <div>
-                    <div>
-                        <h4>{{data.locationsName}}</h4>
-                        <!-- <h2>{{data.dataid}}</h2> -->
-                        {% endfor %}
-                    </div>
-                    {% for locationName,geocode,lat,lon,description in all1 %}
-                    <div>
-                        <h4>{{locationName}}</h4>
-                    </div>
-                    <!-- <h2 id="detail">{{geocode}}</h2> -->
-                    <div>
-                        <h4>經度：{{lat}}</h4>
-                    </div>
-                    <div>
-                        <h4>緯度：{{lon}}</h4>
-                    </div>
-                    <div>
-                        <h4>預報：{{description}}</h4>
+                    <h4>{{data.locationsName}}</h4>
+                    <!-- <h2>{{data.dataid}}</h2> -->
+                    {% endfor %}
+                </div>
+                {% for locationName,geocode,lat,lon,description in all1 %}
+                <div>
+                    <h4>{{locationName}}</h4>
+                </div>
+                <!-- <h2 id="detail">{{geocode}}</h2> -->
+                <div>
+                    <h4>經度：{{lat}}</h4>
+                </div>
+                <div>
+                    <h4>緯度：{{lon}}</h4>
+                </div>
+                <div>
+                    <h4>預報：{{description}}</h4>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- <table class="table"> -->
+            <!-- <tr> -->
+            <!-- <td> -->
+            <br>
+            <div class="flexbox">
+                <div class="flexrow">
+                    {% for start in starttime %}
+                    <div class="start column">{{start}}</div>
+                    {% endfor %}
+                </div>
+                <!-- </td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!-- <td> -->
+                <div class="flexrow">
+                    {% for end in endtime %}
+                    <div class="end column">
+                        {{end}}
                     </div>
                     {% endfor %}
                 </div>
-                <!-- <table class="table"> -->
-                    <!-- <tr> -->
-                        <!-- <td> -->
-                        <br>
-                        <div class="flexbox">
-                        <div class="flexrow">
-                            {% for start in starttime %}
-                            <div class="start column">{{start}}</div>
-                            {% endfor %}
-                        </div>
-                        <!-- </td> -->
-                    <!-- </tr> -->
-                    <!-- <tr> -->
-                        <!-- <td> -->
-                        <div class="flexrow">
-                            {% for end in endtime %}
-                            <div class="end column">
-                                {{end}}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <!-- </td> -->
-                    <!-- </tr> -->
-                    <!-- <tr> -->
-                        <!-- <td> -->
-                        <div class="flexrow">
-                            {% for elementValue in elementValue1 %}
-                            <div class="value1 column">
-                                {{elementValue.value}}<br>{{elementValue.measures}}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <!-- </td> -->
-                    <!-- </tr> -->
-                    <!-- <tr> -->
-                        <!-- <td> -->
-                        <div class="flexrow">
-                            {% for elementValue in elementValue2 %}
-                            <div class="value2 column">
-                                {{elementValue.value}}<br>{{elementValue.measures}}
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <!-- </td> -->
-                    <!-- </tr> -->
+                <!-- </td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!-- <td> -->
+                <div class="flexrow">
+                    {% for elementValue in elementValue1 %}
+                    <div class="value1 column">
+                        {{elementValue.value}}<br>{{elementValue.measures}}
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- </td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!-- <td> -->
+                <div class="flexrow">
+                    {% for elementValue in elementValue2 %}
+                    <div class="value2 column">
+                        {{elementValue.value}}<br>{{elementValue.measures}}
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- </td> -->
+                <!-- </tr> -->
                 <!-- </table> -->
-                        </div>
-
-
-                
+            </div>
 
 
 
-        <!-- </main> -->
+
+
+
+            <!-- </main> -->
 
     </div>
 
