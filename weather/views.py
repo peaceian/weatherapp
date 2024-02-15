@@ -37,7 +37,7 @@ user_agents = [
         ]
 headers = {'user-agent': random.choice(user_agents)} #偽裝使用者
 
-user_key = 'CWB-869C7631-CE97-4263-9AF8-635DF71E8A67'
+user_key = 'CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE'
 
 def wr8(request):
     doc_name = 'F-C0032-001'
@@ -152,7 +152,7 @@ def detailone(request):
         print(type(detailone))
         detailone = urllib.parse.quote(detailone)
         print(type(detailone))
-        source1 = urllib.request.urlopen("https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?StationName="+detailone+"&Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67").read()
+        source1 = urllib.request.urlopen("https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?StationName="+detailone+"&Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE").read()
         #print(source)
         #print(type(source))
         #listofdata = json.loads(source, strict=False)
@@ -197,7 +197,7 @@ def searchcity(request):
         print(type(city))
         city = urllib.parse.quote(city)#漢字轉譯成%xx%xx
         print(type(city))
-        source = urllib.request.urlopen("https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName="+city+"&Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67").read()
+        source = urllib.request.urlopen("https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName="+city+"&Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE").read()
         print(source)
         print(type(source))
         #listofdata = json.loads(source, strict=False)
@@ -223,7 +223,7 @@ def searchcity(request):
     return render(request,'form.html',data) 
 
 # def advisory(request):
-    # url='https://opendata.cwa.gov.tw/api/v1/rest/datastore/W-C0033-001?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67'
+    # url='https://opendata.cwa.gov.tw/api/v1/rest/datastore/W-C0033-001?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE'
     # data = requests.get(url)
     # data_json = data.json()
     # locations = data_json['records']['location']
@@ -274,10 +274,10 @@ def oneweek(request):
         #element = request.POST['element']
         #print(locationName,limit,offset,element)
         city = urllib.parse.quote(locationName)#漢字轉譯
-        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&limit=10&offset=10&locationName=%E5%AE%9C%E8%98%AD%E7%B8%A3&elementName=MaxAT'
-        url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationName='+city
-        #url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&limit='+ limit +'&offset='+ offset + '&locationName=' + city + '&elementName=' + element).read()
-        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&limit={limit}&offset={offset}&locationName={city}&elementName={element}'
+        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit=10&offset=10&locationName=%E5%AE%9C%E8%98%AD%E7%B8%A3&elementName=MaxAT'
+        url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationName='+city
+        #url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit='+ limit +'&offset='+ offset + '&locationName=' + city + '&elementName=' + element).read()
+        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit={limit}&offset={offset}&locationName={city}&elementName={element}'
         #datalist = json.loads(url)  
         response = requests.get(url)
         datalist = response.json()
@@ -351,9 +351,9 @@ def cityweek(request):
         #print(type(elementName))
         town = urllib.parse.quote(town)
         print(town)
-        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationId=F-D0047-{city}&locationName={town}'
-        url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationId=F-D0047-'+city+'&locationName='+town+'&elementName='+elementName).read()
-        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWB-869C7631-CE97-4263-9AF8-635DF71E8A67&locationId=F-D0047-'+city+'&locationName='+town
+        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationId=F-D0047-{city}&locationName={town}'
+        url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationId=F-D0047-'+city+'&locationName='+town+'&elementName='+elementName).read()
+        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationId=F-D0047-'+city+'&locationName='+town
         #print(url)
         #request = requests.get(url)
         response = json.loads(url)
