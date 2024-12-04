@@ -26,7 +26,7 @@ urlpatterns = [
     path('search/',searchcity),
     # path('advisory/',advisory),
     path('home/',hello),
-    path('',hello),
+    path('',searchcity),
     path('oneweek/',oneweek),
     path('cityweek/',cityweek),
 ]
