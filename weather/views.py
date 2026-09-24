@@ -39,65 +39,64 @@ headers = {'user-agent': random.choice(user_agents)} #偽裝使用者
 
 user_key = 'CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE'
 
+
+def _get_first_time_value(location, element_name):
+    for item in location.get('weatherElement', []):
+        if item.get('elementName') == element_name:
+            times = item.get('time', [])
+            if not times:
+                return ''
+            first_time = times[0]
+            parameter = first_time.get('parameter', {})
+            return parameter.get('parameterName') or parameter.get('parameterValue') or ''
+    return ''
+
+
+def _get_first_start_time(location):
+    for item in location.get('weatherElement', []):
+        times = item.get('time', [])
+        if times:
+            return times[0].get('startTime', '')
+    return ''
+
+
+def _build_location_weather_rows(data_json):
+    locations = data_json.get('records', {}).get('location', [])
+    rows = []
+
+    for location in locations:
+        row = {
+            'locationName': location.get('locationName', ''),
+            'wr8': _get_first_time_value(location, 'Wx') or _get_first_time_value(location, 'weather'),
+            'maxt8': _get_first_time_value(location, 'MaxT') or _get_first_time_value(location, 'MaxTemperature'),
+            'mint8': _get_first_time_value(location, 'MinT') or _get_first_time_value(location, 'MinTemperature'),
+            'ci8': _get_first_time_value(location, 'CI') or _get_first_time_value(location, 'comfort'),
+            'pop8': _get_first_time_value(location, 'PoP') or _get_first_time_value(location, 'Pop'),
+            'starttime': _get_first_start_time(location),
+        }
+        rows.append(row)
+
+    return rows
+
+
 def wr8(request):
     doc_name = 'F-C0032-001'
     url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/%s?Authorization=%s" % (doc_name,user_key)
-    #headers = {'Connection':'close'}
-    #requests setting remove SSL certificate.
-    data = requests.get(url,headers=headers,verify=False) #requests json檔內容為文字
-    print(data)
-    #print(data.text)
-    #data = requests.get(url).text #type:str
+    response = requests.get(url, headers=headers, verify=False, timeout=20)
+    response.raise_for_status()
+    data_json = response.json()
 
-    data_json = data.json() #轉換json格式 #type:dict
-    #data_json = json.loads(data) #json #type:dict
+    rows = _build_location_weather_rows(data_json)
 
-    
-    
-    locations = data_json['records']['location'] #取出location內容，依照API資料結構從最外層的鍵開始取出
-    #locations = data_json
+    city = [row['locationName'] for row in rows]
+    wr8 = [row['wr8'] for row in rows]
+    maxt8 = [row['maxt8'] for row in rows]
+    mint8 = [row['mint8'] for row in rows]
+    ci8 = [row['ci8'] for row in rows]
+    pop8 = [row['pop8'] for row in rows]
+    starttime = [row['starttime'] for row in rows]
 
-
-
-    city = []
-    wr8 = []
-    maxt8 = []
-    mint8 = []
-    ci8 = []
-    pop8 = []
-    starttime = []
-
-
-    
-    for i in locations: 
-        city.append(i['locationName'])    # 縣市名稱
-        wr8.append(i['weatherElement'][0]['time'][0]['parameter']['parameterName'])    # 天氣現象
-        maxt8.append(i['weatherElement'][4]['time'][0]['parameter']['parameterName'])  # 最高溫
-        mint8.append(i['weatherElement'][2]['time'][0]['parameter']['parameterName'])  # 最低溫
-        ci8.append(i['weatherElement'][3]['time'][0]['parameter']['parameterName'])    # 舒適度
-        pop8.append(i['weatherElement'][4]['time'][0]['parameter']['parameterName'])   # 降雨機率
-        starttime.append(i['weatherElement'][0]['time'][0]['startTime']) #起始時間
-        #print(f'{city}未來 8 小時{wr8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，體感{ci8}，降雨機率 {pop8}%，從{starttime}開始')
-        #print(i)
-        
-    
-    """
-    for i in data_json: 
-        city = i['locationName']  # 縣市名稱
-        wr8 = i['weatherElement'][0]['time'][0]['parameter']['parameterName']    # 天氣現象
-        maxt8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']  # 最高溫
-        mint8 = i['weatherElement'][2]['time'][0]['parameter']['parameterName']  # 最低溫
-        ci8 = i['weatherElement'][3]['time'][0]['parameter']['parameterName']   # 舒適度
-        pop8 = i['weatherElement'][4]['time'][0]['parameter']['parameterName']   # 降雨機率
-        print(f'{city}未來 8 小時{wr8}，最高溫 {maxt8} 度，最低溫 {mint8} 度，體感{ci8}，降雨機率 {pop8} %')
-        print(i)
-        print(data_json)
-    """
     all = zip(city,wr8,maxt8,mint8,ci8,pop8,starttime)
-
-
-    
-
     return render(request,'weatherlist.html',locals())
 
 
@@ -194,31 +193,26 @@ def detailone(request):
 def searchcity(request):
     if request.method == 'POST':
         city = request.POST['locationName']
-        print(type(city))
-        city = urllib.parse.quote(city)#漢字轉譯成%xx%xx
-        print(type(city))
+        city = urllib.parse.quote(city)
         source = urllib.request.urlopen("https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?locationName="+city+"&Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE").read()
-        print(source)
-        print(type(source))
-        #listofdata = json.loads(source, strict=False)
         listofdata = json.loads(source)
-        print(type(listofdata))
-        #創立空字典裝入需要的鍵和值key:value
-        data = {'locationName':str(listofdata['records']['location'][0]['locationName']),
-            'wr8':str(listofdata['records']['location'][0]['weatherElement'][0]['time'][1]['parameter']['parameterName']),  #天氣現象
-            'maxt8':str(listofdata['records']['location'][0]['weatherElement'][4]['time'][0]['parameter']['parameterName']),  #最高溫
-            'mint8':str(listofdata['records']['location'][0]['weatherElement'][2]['time'][0]['parameter']['parameterName']),  #最低溫
-            'ci8':str(listofdata['records']['location'][0]['weatherElement'][3]['time'][0]['parameter']['parameterName']),  #舒適度
-            'pop8':str(listofdata['records']['location'][0]['weatherElement'][1]['time'][0]['parameter']['parameterName']), #降雨機率
-            'starttime':str(listofdata['records']['location'][0]['weatherElement'][0]['time'][0]['startTime'])#起始時間
-            } 
+        locations = listofdata.get('records', {}).get('location', [])
+        if not locations:
+            data = {}
+        else:
+            location = locations[0]
+            data = {
+                'locationName': str(location.get('locationName', '')),
+                'wr8': str(_get_first_time_value(location, 'Wx') or ''),
+                'maxt8': str(_get_first_time_value(location, 'MaxT') or ''),
+                'mint8': str(_get_first_time_value(location, 'MinT') or ''),
+                'ci8': str(_get_first_time_value(location, 'CI') or ''),
+                'pop8': str(_get_first_time_value(location, 'PoP') or ''),
+                'starttime': str(_get_first_start_time(location)),
+            }
         print(data)
     else:
         data = {}
-        
-        
-        
-        
 
     return render(request,'form.html',data) 
 
@@ -274,10 +268,10 @@ def oneweek(request):
         #element = request.POST['element']
         #print(locationName,limit,offset,element)
         city = urllib.parse.quote(locationName)#漢字轉譯
-        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit=10&offset=10&locationName=%E5%AE%9C%E8%98%AD%E7%B8%A3&elementName=MaxAT'
+        #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit=10&offset=10&locationName=%E5%AE%9C%E8%98%AD%E7%B8%A3&el[...]
         url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationName='+city
-        #url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit='+ limit +'&offset='+ offset + '&locationName=' + city + '&elementName=' + element).read()
-        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit={limit}&offset={offset}&locationName={city}&elementName={element}'
+        #url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit='+ limit +'&offset='+ offset + '&[...]
+        #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-091?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&limit={limit}&offset={offset}&locationName={city}&elementName[...]
         #datalist = json.loads(url)  
         response = requests.get(url)
         datalist = response.json()
@@ -307,7 +301,7 @@ def oneweek(request):
             endTime.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][1]['endTime'])
             elementInt.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['value'])
             measures.append(i['records']['locations'][0]['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['measures'])
-        print(f'datasetDescription:{datasetDescription}locationName:{locationName}geocode:{geocode}lat:{lat}lon:{lon}description:{description}startTime:{startTime}endTime:{endTime}elementInt:{elementInt}measure:{measures}')
+        print(f'datasetDescription:{datasetDescription}locationName:{locationName}geocode:{geocode}lat:{lat}lon:{lon}description:{description}startTime:{startTime}endTime:{endTime}elementInt:{elementInt}measures:{measures}')
         
         # for data in datalist:
             # datasetDescription.append(data['datasetDescription'])
@@ -320,7 +314,7 @@ def oneweek(request):
             # endTime.append(data['location'][0]['weatherElement'][0]['time'][1]['endTime'])
             # elementInt.append(data['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['value'])
             # measures.append(data['location'][0]['weatherElement'][0]['time'][2]['elementValue'][0]['measures'])
-            # print(f'datasetDescription:{datasetDescription}locationName:{locationName}geocode:{geocode}lat:{lat}lon:{lon}description:{description}startTime:{startTime}endTime:{endTime}elementInt:{elementInt}measure:{measures}')
+            # print(f'datasetDescription:{datasetDescription}locationName:{locationName}geocode:{geocode}lat:{lat}lon:{lon}description:{description}startTime:{startTime}endTime:{endTime}elementInt:{elementInt}measures:{measures}')
         all = zip(datasetDescription,locationName,geocode,lat,lon,description,startTime,endTime,elementInt,measures)
         #for data in datalist:
         #    data = {'datasetDescription':str(datalist['records']['locations'][0]['datasetDescription']),
@@ -352,7 +346,7 @@ def cityweek(request):
         town = urllib.parse.quote(town)
         print(town)
         #url = f'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationId=F-D0047-{city}&locationName={town}'
-        url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationId=F-D0047-'+city+'&locationName='+town+'&elementName='+elementName).read()
+        url = urllib.request.urlopen('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationId=F-D0047-'+city+'&locationName[...]
         #url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-D0047-093?Authorization=CWA-1871AC9A-A399-42A1-B108-8A365C3FB8BE&locationId=F-D0047-'+city+'&locationName='+town
         #print(url)
         #request = requests.get(url)
@@ -437,7 +431,7 @@ def cityweek(request):
                    'elementValue2':str(elementValue2),
                    #'elementValue':elementValue,
                    #'measuressec':measuressec,
-               }
+                }
         all1 = zip(locationName,geocode,lat,lon,description)
         print(context)
     else:
